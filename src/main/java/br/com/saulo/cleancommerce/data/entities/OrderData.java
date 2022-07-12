@@ -17,10 +17,7 @@ public class OrderData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @ManyToOne
-    private CustomerData customerData;
     private Long total;
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
-    private List<OrderItemData> orderItemData;
 }
