@@ -1,5 +1,6 @@
 package br.com.saulo.cleancommerce.presenter.controller.product;
 
+import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,5 +18,5 @@ public interface IProductsController {
     CompletableFuture<ResponseEntity<List<ProductResponse>>> listAllProducts();
 
     @PostMapping("/create")
-    void createProduct();
+    void createProduct(CreateProductRequest createProductRequest);
 }

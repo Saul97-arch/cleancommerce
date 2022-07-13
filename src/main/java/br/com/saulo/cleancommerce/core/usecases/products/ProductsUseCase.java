@@ -1,6 +1,7 @@
 package br.com.saulo.cleancommerce.core.usecases.products;
 
 import br.com.saulo.cleancommerce.core.domain.Product;
+import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
 import br.com.saulo.cleancommerce.data.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ProductsUseCase {
         return products.stream().map(ProductResponse::from).collect(Collectors.toList());
     }
 
-    public void createProduct() {
-        repository.createProduct();
+    public void createProduct(CreateProductRequest createProductRequest) {
+        repository.createProduct(createProductRequest);
     }
 }

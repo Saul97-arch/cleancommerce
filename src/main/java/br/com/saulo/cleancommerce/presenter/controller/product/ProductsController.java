@@ -1,11 +1,14 @@
 package br.com.saulo.cleancommerce.presenter.controller.product;
 
 import br.com.saulo.cleancommerce.core.usecases.products.ProductsUseCase;
+import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -24,7 +27,7 @@ public class ProductsController implements IProductsController {
     }
 
     @Override
-    public void createProduct() {
-        productsUseCase.createProduct();
+    public void createProduct(@Valid @RequestBody CreateProductRequest createProductRequest) {
+        productsUseCase.createProduct(createProductRequest);
     }
 }

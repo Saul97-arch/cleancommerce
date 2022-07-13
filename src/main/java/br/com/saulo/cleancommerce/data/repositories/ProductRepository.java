@@ -3,7 +3,7 @@ package br.com.saulo.cleancommerce.data.repositories;
 import br.com.saulo.cleancommerce.core.domain.Product;
 import br.com.saulo.cleancommerce.core.usecases.products.IProductRepository;
 import br.com.saulo.cleancommerce.data.entities.ProductData;
-import org.springframework.context.annotation.Bean;
+import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +30,10 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void createProduct() {
-        jpaProductRepository.save(new ProductData("MockNome", "MockDescricao", 2000.0));
+    @Async
+    public void createProduct(CreateProductRequest createProductRequest) {
+        jpaProductRepository.save(new ProductData(createProductRequest.getName(),
+                createProductRequest.getDescription(),
+                createProductRequest.getPrice()));
     }
 }
