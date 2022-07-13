@@ -4,6 +4,7 @@ import br.com.saulo.cleancommerce.core.domain.Product;
 import br.com.saulo.cleancommerce.core.usecases.products.IProductRepository;
 import br.com.saulo.cleancommerce.data.entities.ProductData;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
+    @Async
     public List<Product> listAllProducts() {
         return jpaProductRepository
                 .findAll()
