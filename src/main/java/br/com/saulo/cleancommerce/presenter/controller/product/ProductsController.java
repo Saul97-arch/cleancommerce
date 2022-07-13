@@ -27,7 +27,7 @@ public class ProductsController implements IProductsController {
     }
 
     @Override
-    public void createProduct(@Valid @RequestBody CreateProductRequest createProductRequest) {
-        productsUseCase.createProduct(createProductRequest);
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody CreateProductRequest createProductRequest) {
+        return ResponseEntity.ok(productsUseCase.createProduct(createProductRequest));
     }
 }

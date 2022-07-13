@@ -18,5 +18,5 @@ public interface IProductsController {
     CompletableFuture<ResponseEntity<List<ProductResponse>>> listAllProducts();
 
     @PostMapping("/create")
-    void createProduct(CreateProductRequest createProductRequest);
+    ResponseEntity<?> createProduct(CreateProductRequest createProductRequest);
 }
