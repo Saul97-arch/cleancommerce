@@ -1,7 +1,7 @@
 package br.com.saulo.cleancommerce.config;
 
 import br.com.saulo.cleancommerce.core.usecases.security.filters.JWTauthenticationFilter;
-import br.com.saulo.cleancommerce.data.repositories.CustomerRepository;
+import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPACustomerRepository;
 import br.com.saulo.cleancommerce.presenter.services.TokenService;
 import br.com.saulo.cleancommerce.presenter.services.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -35,7 +34,7 @@ public class WebSecurityConfig {
     @Autowired
     private TokenService tokenService;
     @Autowired
-    private CustomerRepository customerRepository;
+    private JPACustomerRepository customerRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,6 +52,8 @@ public class WebSecurityConfig {
                 .antMatchers(HttpMethod.GET, "/product/create").authenticated()
                 .antMatchers(HttpMethod.GET, "/product/list").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .antMatchers(HttpMethod.GET, "/customer/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/customer/**").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

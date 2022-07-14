@@ -5,6 +5,7 @@ import br.com.saulo.cleancommerce.core.usecases.products.IProductRepository;
 import br.com.saulo.cleancommerce.data.entities.ProductData;
 import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
+import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAProductRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 

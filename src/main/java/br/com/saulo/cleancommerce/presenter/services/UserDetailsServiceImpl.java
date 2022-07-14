@@ -1,16 +1,17 @@
 package br.com.saulo.cleancommerce.presenter.services;
 
 import br.com.saulo.cleancommerce.data.entities.CustomerData;
-import br.com.saulo.cleancommerce.data.repositories.CustomerRepository;
+import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPACustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
 
-public class UserDetailsServiceImpl implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private CustomerRepository customerRepository;
+    private JPACustomerRepository customerRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

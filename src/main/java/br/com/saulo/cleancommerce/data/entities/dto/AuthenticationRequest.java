@@ -7,7 +7,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 public class AuthenticationRequest {
     String user;
     String password;
-
     public  UsernamePasswordAuthenticationToken convert() {
         return new UsernamePasswordAuthenticationToken(user, password);
     }
