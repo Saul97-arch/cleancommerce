@@ -20,4 +20,9 @@ public class OrderData {
     private Long total;
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
+
+    @Column(name = "order_item")
+    @OneToMany
+    @JoinColumn(name = "order_item_id", nullable = false)
+    private List<OrderItemData> orderItemData;
 }
