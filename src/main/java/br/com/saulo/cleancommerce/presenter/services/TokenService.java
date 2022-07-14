@@ -1,6 +1,6 @@
 package br.com.saulo.cleancommerce.presenter.services;
 
-import br.com.saulo.cleancommerce.core.domain.Customer;
+import br.com.saulo.cleancommerce.data.entities.CustomerData;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,7 +29,7 @@ public class TokenService {
     }
 
     public String generateToken(Authentication authentication) {
-        Customer loggedUser = (Customer) authentication.getPrincipal();
+        CustomerData loggedUser = (CustomerData) authentication.getPrincipal();
         Date today = new Date();
         Date dataExpiracao = new Date(today.getTime() + Long.parseLong(expiration));
 

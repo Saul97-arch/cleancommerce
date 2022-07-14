@@ -1,6 +1,7 @@
 package br.com.saulo.cleancommerce.data.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +11,11 @@ import java.util.Collection;
 @Entity
 @Table(name = "customers")
 @AllArgsConstructor
+@Getter
 public class CustomerData implements UserDetails {
+    public CustomerData() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
