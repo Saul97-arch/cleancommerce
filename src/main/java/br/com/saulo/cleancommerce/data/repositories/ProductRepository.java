@@ -27,17 +27,23 @@ public class ProductRepository implements IProductRepository {
         return jpaProductRepository
                 .findAll()
                 .stream()
-                .map(ProductData::toProduct)
+                .map(ProductData::fromProductData)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Async
-    public ProductResponse createProduct(CreateProductRequest createProductRequest) {
+    public ProductResponse persist(CreateProductRequest createProductRequest) {
         ProductData save = jpaProductRepository.save(new ProductData(createProductRequest.getName(),
                 createProductRequest.getDescription(),
                 createProductRequest.getPrice()));
 
         return new ProductResponse(save.getId(), save.getName(), save.getDescription(), save.getPrice());
+    }
+
+    @Override
+    public Product findByName(String name) {
+        ProductData productData = jpaProductRepository.findByName(name);
+        return ProductData.fromProductData(productData);
     }
 }

@@ -24,6 +24,6 @@ public class ProductsService {
     }
 
     public ProductResponse createProduct(CreateProductRequest createProductRequest) {
-        return repository.createProduct(createProductRequest);
+        return repository.persist(createProductRequest);
     }
 }
