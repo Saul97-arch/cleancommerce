@@ -5,13 +5,15 @@ import br.com.saulo.cleancommerce.core.usecases.products.IProductRepository;
 import br.com.saulo.cleancommerce.data.entities.ProductData;
 import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
+import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAProductRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Repository
 public class ProductRepository implements IProductRepository {
 
     private final JPAProductRepository jpaProductRepository;
@@ -26,17 +28,23 @@ public class ProductRepository implements IProductRepository {
         return jpaProductRepository
                 .findAll()
                 .stream()
-                .map(ProductData::toProduct)
+                .map(ProductData::fromProductData)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Async
-    public ProductResponse createProduct(CreateProductRequest createProductRequest) {
+    public ProductResponse persist(CreateProductRequest createProductRequest) {
         ProductData save = jpaProductRepository.save(new ProductData(createProductRequest.getName(),
                 createProductRequest.getDescription(),
                 createProductRequest.getPrice()));
 
         return new ProductResponse(save.getId(), save.getName(), save.getDescription(), save.getPrice());
+    }
+
+    @Override
+    public Product findByName(String name) {
+        ProductData productData = jpaProductRepository.findByName(name);
+        return ProductData.fromProductData(productData);
     }
 }

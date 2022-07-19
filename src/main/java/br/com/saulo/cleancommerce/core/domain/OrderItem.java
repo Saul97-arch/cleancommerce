@@ -11,5 +11,14 @@ public class OrderItem {
     Long id;
     Long quantity;
     Product product;
-    Long total;
+    Double total;
+
+    public static OrderItem newInstance(Long quantity, Product product) {
+        return new OrderItem(
+                null,
+                quantity,
+                product,
+                quantity * product.getPrice()
+        );
+    }
 }

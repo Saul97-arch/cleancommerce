@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface IProductRepository {
     List<Product> listAllProducts();
-    ProductResponse createProduct(CreateProductRequest createProductRequest);
+    ProductResponse persist(CreateProductRequest createProductRequest);
+
+    Product findByName(String name);
 }

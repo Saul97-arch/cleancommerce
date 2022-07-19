@@ -1,7 +1,7 @@
 package br.com.saulo.cleancommerce.core.usecases.security.filters;
 
 import br.com.saulo.cleancommerce.data.entities.CustomerData;
-import br.com.saulo.cleancommerce.data.repositories.CustomerRepository;
+import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPACustomerRepository;
 import br.com.saulo.cleancommerce.presenter.services.TokenService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +18,8 @@ public class JWTauthenticationFilter extends OncePerRequestFilter {
 
 
     private TokenService tokenService;
-    private CustomerRepository customerRepository;
-    public JWTauthenticationFilter(TokenService tokenService, CustomerRepository customerRepository) {
+    private JPACustomerRepository customerRepository;
+    public JWTauthenticationFilter(TokenService tokenService, JPACustomerRepository customerRepository) {
         this.tokenService = tokenService;
         this.customerRepository = customerRepository;
     }
