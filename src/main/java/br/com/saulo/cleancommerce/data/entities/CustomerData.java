@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -25,6 +26,10 @@ public class CustomerData implements UserDetails {
     String address;
     String password;
     String email;
+    @Column(name = "all_orders")
+    @JoinColumn(name = "all_orders_id")
+    @OneToMany
+    List<OrderData> orderDataList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -60,6 +65,7 @@ public class CustomerData implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
     public static CustomerData fromCustomer(Customer customer) {
         return new CustomerData(
                 customer.getId(),
@@ -67,7 +73,8 @@ public class CustomerData implements UserDetails {
                 customer.getName(),
                 customer.getAddress(),
                 customer.getPassword(),
-                customer.getEmail()
+                customer.getEmail(),
+                null
         );
     }
 

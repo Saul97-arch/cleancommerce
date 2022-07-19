@@ -1,18 +1,21 @@
 package br.com.saulo.cleancommerce.core.usecases.order;
 
 import br.com.saulo.cleancommerce.data.entities.dto.OrderItemRequest;
+import br.com.saulo.cleancommerce.data.entities.dto.OrderRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.OrderResponse;
 import br.com.saulo.cleancommerce.presenter.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class OrderUseCase {
 
     @Autowired
     private OrderService orderService;
-    public ResponseEntity<OrderResponse> orderItem(OrderItemRequest orderItemRequest) {
+    public ResponseEntity<OrderResponse> orderItem(OrderRequest orderItemRequest) throws Exception {
         return orderService.orderItem(orderItemRequest);
     }
 }

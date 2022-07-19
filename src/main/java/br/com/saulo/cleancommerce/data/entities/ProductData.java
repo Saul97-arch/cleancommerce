@@ -30,11 +30,20 @@ public class ProductData {
         this.description = description;
         this.price = price;
     }
+
     public static Product fromProductData(ProductData productData) {
         return new Product(
                 productData.name,
                 productData.description,
                 productData.price
+        );
+    }
+
+    public static ProductData from(Product product) {
+        return new ProductData(
+                product.getName(),
+                product.getDescription(),
+                product.getPrice()
         );
     }
 }

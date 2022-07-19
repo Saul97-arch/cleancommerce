@@ -8,11 +8,12 @@ import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
 import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAProductRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Repository
 public class ProductRepository implements IProductRepository {
 
     private final JPAProductRepository jpaProductRepository;

@@ -1,5 +1,6 @@
 package br.com.saulo.cleancommerce.core.domain;
 
+import br.com.saulo.cleancommerce.data.entities.ProductData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +18,14 @@ public class Product {
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    public ProductData toProductData() {
+        return new ProductData(
+                id,
+                name,
+                description,
+                price
+        );
     }
 }

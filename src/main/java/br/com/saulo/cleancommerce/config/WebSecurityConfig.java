@@ -6,6 +6,7 @@ import br.com.saulo.cleancommerce.presenter.services.TokenService;
 import br.com.saulo.cleancommerce.presenter.services.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,6 +23,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.annotation.WebServlet;
 
 @EnableWebSecurity
 @Configuration
@@ -49,12 +53,16 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.GET, "/product/create").authenticated()
-                .antMatchers(HttpMethod.GET, "/product/list").permitAll()
+                .antMatchers(HttpMethod.GET, "/product/list").authenticated()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(HttpMethod.GET, "/customer/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/customer/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers(HttpMethod.POST, "/orders/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/h2-console/**").permitAll()
+                .anyRequest().permitAll()
+                .and().headers().frameOptions().disable()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(new JWTauthenticationFilter(tokenService, customerRepository), UsernamePasswordAuthenticationFilter.class);
@@ -68,6 +76,7 @@ public class WebSecurityConfig {
                         "/v2/api-docs",
                         "/webjars/**",
                         "/configuration/**",
-                        "/swagger-resources/**");
+                        "/swagger-resources/**",
+                        "h2-console/**");
     }
 }

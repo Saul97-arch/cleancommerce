@@ -15,9 +15,9 @@ public class Order {
     Double total;
     Customer customer;
 
-    public static Order newInstance(Long id, List<OrderItem> orderItemList, Double total, Customer customer) {
+    public static Order newInstance(List<OrderItem> orderItemList, Double total, Customer customer) {
         return new Order(
-                id,
+                null,
                 Status.OPEN,
                 orderItemList,
                 Instant.now(),
