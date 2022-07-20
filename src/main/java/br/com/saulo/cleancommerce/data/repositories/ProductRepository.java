@@ -5,9 +5,9 @@ import br.com.saulo.cleancommerce.core.usecases.products.IProductRepository;
 import br.com.saulo.cleancommerce.data.entities.ProductData;
 import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
+import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
 import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAProductRepository;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,8 +43,11 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Product findByName(String name) {
+    public Product findByName(String name) throws ProductNotFoundException {
         ProductData productData = jpaProductRepository.findByName(name);
+        if (productData == null) {
+            throw new ProductNotFoundException("Product no found!");
+        }
         return ProductData.fromProductData(productData);
     }
 }

@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "order_items")
 public class OrderItemData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +23,11 @@ public class OrderItemData {
     private Long quantity;
     private Double total;
     @ManyToOne
-    @JoinColumn(name = "order_id")
     OrderData orderData;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+    //@JoinColumn(name = "product_id")
     private ProductData productData;
-
 
     public static List<OrderItemData> from(List<OrderItem> orderItems) {
         List<OrderItemData> orderItemHashSet = new ArrayList<>();
