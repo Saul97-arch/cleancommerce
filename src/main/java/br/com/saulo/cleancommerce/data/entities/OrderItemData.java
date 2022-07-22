@@ -25,7 +25,10 @@ public class OrderItemData {
     @ManyToOne
     OrderData orderData;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    public OrderItemData() {
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JoinColumn(name = "product_id")
     private ProductData productData;
 
@@ -45,7 +48,7 @@ public class OrderItemData {
                 orderItem.getQuantity(),
                 orderItem.getTotal(),
                 null,
-                ProductData.from(orderItem.getProduct())
+                null
         );
     }
 }

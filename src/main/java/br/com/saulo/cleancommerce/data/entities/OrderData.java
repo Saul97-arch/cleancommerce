@@ -52,13 +52,12 @@ public class OrderData {
                 order.getId(),
                 order.getTotal(),
                 order.getCreatedAt(),
-                new ArrayList<OrderItemData>(),
+                new ArrayList<>(),
                 order.getStatus()
         );
     }
 
-    public static OrderData newInstance(CustomerData customer,
-                                        List<OrderItemData> orderItems) {
+    public static OrderData newInstance(List<OrderItemData> orderItems) {
         OrderData order = new OrderData(
                 null,
                 0d,

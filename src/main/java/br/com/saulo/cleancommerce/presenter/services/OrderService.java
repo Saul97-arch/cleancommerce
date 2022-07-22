@@ -11,6 +11,7 @@ import br.com.saulo.cleancommerce.data.repositories.OrderRepository;
 import br.com.saulo.cleancommerce.data.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +25,13 @@ public class OrderService {
     @Autowired
     ProductRepository productRepository;
 
+    @Async
     public ResponseEntity<OrderResponse> orderItem(OrderRequest orderRequest) {
 
         List<OrderItem> orderItems = orderRequest.getOrderItemRequestList().stream().map(orderItemRequest -> {
-            // TODO go to optional and async
+            // TODO go to optional
+            // TODO ENTENDER PRA QUE USAR INNER JOIN
+            // TODO COLOCAR USUÁRIO NA JOGADA
             Product product;
             try {
                 product = productRepository.findByName(orderItemRequest.getName());
@@ -54,5 +58,10 @@ public class OrderService {
                 "Avenue 7th ",
                 "23324324",
                 "teste@teste.com");
+    }
+
+    @Async
+    public ResponseEntity<List<OrderResponse>> listOrders() {
+        return ResponseEntity.ok(orderRepository.listAll());
     }
 }

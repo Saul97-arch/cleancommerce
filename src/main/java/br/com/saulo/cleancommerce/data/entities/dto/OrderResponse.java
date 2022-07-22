@@ -4,6 +4,6 @@ import lombok.Value;
 
 @Value
 public class OrderResponse {
-    Long quantity;
-
+    String status;
+    Double total;
 }

@@ -9,15 +9,27 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Component
-public class OrderController implements IOrderController{
+public class OrderController implements IOrderController {
 
     @Autowired
     private OrderUseCase orderUseCase;
 
     @Override
-    public ResponseEntity<OrderResponse> orderItem(@Valid @RequestBody OrderRequest orderRequest) throws Exception {
-        return orderUseCase.orderItem(orderRequest);
+    public CompletableFuture<ResponseEntity<OrderResponse>> orderItem(@Valid @RequestBody OrderRequest orderRequest) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return orderUseCase.orderItem(orderRequest);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().build();
+            }
+        });
+    }
+
+    public CompletableFuture<ResponseEntity<List<OrderResponse>>> listOrders() {
+        return CompletableFuture.supplyAsync(() -> orderUseCase.listOrders());
     }
 }
