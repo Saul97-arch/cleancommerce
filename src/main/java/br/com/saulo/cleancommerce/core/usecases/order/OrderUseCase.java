@@ -1,4 +1,5 @@
 package br.com.saulo.cleancommerce.core.usecases.order;
+import br.com.saulo.cleancommerce.core.domain.exceptions.UserNotFoundException;
 import br.com.saulo.cleancommerce.data.entities.dto.OrderRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.OrderResponse;
 import br.com.saulo.cleancommerce.presenter.services.OrderService;
@@ -8,8 +9,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 @Component
 public class OrderUseCase {
 
@@ -17,7 +16,7 @@ public class OrderUseCase {
     private OrderService orderService;
 
     @Async
-    public ResponseEntity<OrderResponse> orderItem(OrderRequest orderItemRequest) {
+    public ResponseEntity<OrderResponse> orderItem(OrderRequest orderItemRequest) throws UserNotFoundException {
         return orderService.orderItem(orderItemRequest);
     }
 

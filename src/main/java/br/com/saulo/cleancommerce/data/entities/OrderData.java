@@ -41,29 +41,29 @@ public class OrderData {
     public OrderData(Double total) {
         this.total = total;
     }
-    // TODO include this field in customer
-    /*
-    @OneToMany
-    @Column(name = "customer")
+
+    @ManyToOne
     private CustomerData customerData;
-    */
+
     public static OrderData from(Order order) {
         return new OrderData(
                 order.getId(),
                 order.getTotal(),
                 order.getCreatedAt(),
                 new ArrayList<>(),
-                order.getStatus()
+                order.getStatus(),
+                CustomerData.fromCustomer(order.getCustomer())
         );
     }
 
-    public static OrderData newInstance(List<OrderItemData> orderItems) {
+    public static OrderData newInstance(List<OrderItemData> orderItems, CustomerData customerData) {
         OrderData order = new OrderData(
                 null,
                 0d,
                 Instant.now(),
                 null,
-                Status.OPEN
+                Status.OPEN,
+                customerData
         );
 
         orderItems.forEach(order::addOrderItem);

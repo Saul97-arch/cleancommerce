@@ -1,9 +1,12 @@
 package br.com.saulo.cleancommerce.core.domain;
 
+import br.com.saulo.cleancommerce.data.entities.CustomerData;
 import br.com.saulo.cleancommerce.data.entities.dto.CustomerResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 @Getter
@@ -24,6 +27,17 @@ public class Customer {
                 address,
                 password,
                 email
+        );
+    }
+
+    public static Customer from(CustomerData customerData) {
+        return new Customer(
+                customerData.getId(),
+                customerData.getCPF(),
+                customerData.getName(),
+                customerData.getAddress(),
+                null,
+                customerData.getEmail()
         );
     }
 

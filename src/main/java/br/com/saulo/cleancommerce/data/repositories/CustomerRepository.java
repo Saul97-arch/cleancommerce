@@ -47,4 +47,13 @@ public class CustomerRepository implements ICustomerRepository {
         }
         throw new UserNotFoundException("User not found!");
     }
+
+    @Override
+    public Optional<Customer> findById(long id) throws UserNotFoundException {
+        Optional<CustomerData> customerdata = jpaCustomerRepository.findById(id);
+        if (customerdata.isPresent()) {
+            return Optional.of(Customer.from(customerdata.get()));
+        }
+        throw new UserNotFoundException("User not found!");
+    }
 }

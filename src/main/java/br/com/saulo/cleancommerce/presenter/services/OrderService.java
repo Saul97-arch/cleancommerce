@@ -4,9 +4,11 @@ import br.com.saulo.cleancommerce.core.domain.Customer;
 import br.com.saulo.cleancommerce.core.domain.Order;
 import br.com.saulo.cleancommerce.core.domain.OrderItem;
 import br.com.saulo.cleancommerce.core.domain.Product;
+import br.com.saulo.cleancommerce.core.domain.exceptions.UserNotFoundException;
 import br.com.saulo.cleancommerce.data.entities.dto.OrderRequest;
 import br.com.saulo.cleancommerce.data.entities.dto.OrderResponse;
 import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
+import br.com.saulo.cleancommerce.data.repositories.CustomerRepository;
 import br.com.saulo.cleancommerce.data.repositories.OrderRepository;
 import br.com.saulo.cleancommerce.data.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +27,14 @@ public class OrderService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    CustomerRepository customerRepository;
+
     @Async
-    public ResponseEntity<OrderResponse> orderItem(OrderRequest orderRequest) {
+    public ResponseEntity<OrderResponse> orderItem(OrderRequest orderRequest) throws UserNotFoundException {
 
         List<OrderItem> orderItems = orderRequest.getOrderItemRequestList().stream().map(orderItemRequest -> {
-            // TODO go to optional
             // TODO ENTENDER PRA QUE USAR INNER JOIN
-            // TODO COLOCAR USUÁRIO NA JOGADA
             Product product;
             try {
                 product = productRepository.findByName(orderItemRequest.getName());
@@ -45,21 +48,14 @@ public class OrderService {
                 .stream()
                 .reduce(0.0, (total, orderItem) -> total + orderItem.getTotal(), Double::sum);
 
-        OrderResponse persist = orderRepository.persist(Order.newInstance(orderItems, totalPrice, getCustomer()));
+        if (customerRepository.findById(orderRequest.getCustomerId()).isPresent()) {
+            Customer customer = customerRepository.findById(orderRequest.getCustomerId()).get();
+            OrderResponse persist = orderRepository.persist(Order.newInstance(orderItems, totalPrice, customer));
+            return ResponseEntity.ok(persist);
+        }
 
-        return ResponseEntity.ok(persist);
+        return ResponseEntity.badRequest().build();
     }
-
-    private Customer getCustomer() {
-        return new Customer(
-                1L,
-                "33333",
-                "Rob",
-                "Avenue 7th ",
-                "23324324",
-                "teste@teste.com");
-    }
-
     @Async
     public ResponseEntity<List<OrderResponse>> listOrders() {
         return ResponseEntity.ok(orderRepository.listAll());
