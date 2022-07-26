@@ -2,8 +2,8 @@ package br.com.saulo.cleancommerce.presenter.services;
 
 import br.com.saulo.cleancommerce.core.domain.Customer;
 import br.com.saulo.cleancommerce.core.domain.exceptions.UserNotFoundException;
-import br.com.saulo.cleancommerce.data.entities.dto.CustomerCreateRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.CustomerResponse;
+import br.com.saulo.cleancommerce.data.dto.CustomerCreateRequest;
+import br.com.saulo.cleancommerce.data.dto.CustomerResponse;
 import br.com.saulo.cleancommerce.data.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

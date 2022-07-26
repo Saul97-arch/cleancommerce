@@ -29,7 +29,7 @@ public class Order {
     private static Double calculateTotal(List<OrderItem> orderItems) {
         return orderItems
                 .stream()
-                .mapToDouble(OrderItem::getTotal)
+                .mapToDouble(OrderItem::getUnitPrice)
                 .sum();
     }
 

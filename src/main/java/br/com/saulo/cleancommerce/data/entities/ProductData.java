@@ -31,11 +31,12 @@ public class ProductData {
         this.price = price;
     }
 
-    public static Product fromProductData(ProductData productData) {
+    public  Product fromProductData() {
         return new Product(
-                productData.name,
-                productData.description,
-                productData.price
+                id,
+                name,
+                description,
+                price
         );
     }
 

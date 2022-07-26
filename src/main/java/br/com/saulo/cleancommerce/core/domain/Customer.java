@@ -1,12 +1,10 @@
 package br.com.saulo.cleancommerce.core.domain;
 
 import br.com.saulo.cleancommerce.data.entities.CustomerData;
-import br.com.saulo.cleancommerce.data.entities.dto.CustomerResponse;
+import br.com.saulo.cleancommerce.data.dto.CustomerResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Optional;
 
 @AllArgsConstructor
 @Getter

@@ -5,8 +5,8 @@ import br.com.saulo.cleancommerce.core.domain.Order;
 import br.com.saulo.cleancommerce.core.domain.OrderItem;
 import br.com.saulo.cleancommerce.core.domain.Product;
 import br.com.saulo.cleancommerce.core.domain.exceptions.UserNotFoundException;
-import br.com.saulo.cleancommerce.data.entities.dto.OrderRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.OrderResponse;
+import br.com.saulo.cleancommerce.data.dto.OrderRequest;
+import br.com.saulo.cleancommerce.data.dto.OrderResponse;
 import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
 import br.com.saulo.cleancommerce.data.repositories.CustomerRepository;
 import br.com.saulo.cleancommerce.data.repositories.OrderRepository;
@@ -34,7 +34,6 @@ public class OrderService {
     public ResponseEntity<OrderResponse> orderItem(OrderRequest orderRequest) throws UserNotFoundException {
 
         List<OrderItem> orderItems = orderRequest.getOrderItemRequestList().stream().map(orderItemRequest -> {
-            // TODO ENTENDER PRA QUE USAR INNER JOIN
             Product product;
             try {
                 product = productRepository.findByName(orderItemRequest.getName());
@@ -46,7 +45,7 @@ public class OrderService {
 
         Double totalPrice = orderItems
                 .stream()
-                .reduce(0.0, (total, orderItem) -> total + orderItem.getTotal(), Double::sum);
+                .reduce(0.0, (total, orderItem) -> total + orderItem.getUnitPrice(), Double::sum);
 
         if (customerRepository.findById(orderRequest.getCustomerId()).isPresent()) {
             Customer customer = customerRepository.findById(orderRequest.getCustomerId()).get();

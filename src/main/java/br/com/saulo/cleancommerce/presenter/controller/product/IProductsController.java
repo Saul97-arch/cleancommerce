@@ -1,7 +1,7 @@
 package br.com.saulo.cleancommerce.presenter.controller.product;
 
-import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
+import br.com.saulo.cleancommerce.data.dto.CreateProductRequest;
+import br.com.saulo.cleancommerce.data.dto.ProductResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

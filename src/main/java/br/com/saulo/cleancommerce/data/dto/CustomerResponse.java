@@ -1,4 +1,4 @@
-package br.com.saulo.cleancommerce.data.entities.dto;
+package br.com.saulo.cleancommerce.data.dto;
 
 import br.com.saulo.cleancommerce.core.domain.Customer;
 import lombok.Value;

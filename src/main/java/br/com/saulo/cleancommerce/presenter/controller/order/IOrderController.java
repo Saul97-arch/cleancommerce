@@ -1,12 +1,10 @@
 package br.com.saulo.cleancommerce.presenter.controller.order;
 
-import br.com.saulo.cleancommerce.data.entities.dto.OrderItemRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.OrderRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.OrderResponse;
+import br.com.saulo.cleancommerce.data.dto.OrderRequest;
+import br.com.saulo.cleancommerce.data.dto.OrderResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

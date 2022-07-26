@@ -3,14 +3,15 @@ package br.com.saulo.cleancommerce.data.repositories;
 import br.com.saulo.cleancommerce.core.domain.Product;
 import br.com.saulo.cleancommerce.core.usecases.products.IProductRepository;
 import br.com.saulo.cleancommerce.data.entities.ProductData;
-import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
+import br.com.saulo.cleancommerce.data.dto.CreateProductRequest;
+import br.com.saulo.cleancommerce.data.dto.ProductResponse;
 import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
 import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAProductRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -48,6 +49,16 @@ public class ProductRepository implements IProductRepository {
         if (productData == null) {
             throw new ProductNotFoundException("Product no found!");
         }
-        return ProductData.fromProductData(productData);
+        return productData.fromProductData();
+    }
+
+    @Override
+    public Product findById(Long productId) throws ProductNotFoundException {
+        Optional<ProductData> productData = jpaProductRepository.findById(productId);
+        if (productData.isPresent()) {
+            return Product.from(productData.get());
+        }
+
+        throw new ProductNotFoundException("Product not foun!");
     }
 }

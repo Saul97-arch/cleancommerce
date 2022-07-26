@@ -1,7 +1,7 @@
 package br.com.saulo.cleancommerce.core.usecases.order;
 import br.com.saulo.cleancommerce.core.domain.exceptions.UserNotFoundException;
-import br.com.saulo.cleancommerce.data.entities.dto.OrderRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.OrderResponse;
+import br.com.saulo.cleancommerce.data.dto.OrderRequest;
+import br.com.saulo.cleancommerce.data.dto.OrderResponse;
 import br.com.saulo.cleancommerce.presenter.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

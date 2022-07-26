@@ -7,9 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @AllArgsConstructor
@@ -21,34 +19,48 @@ public class OrderItemData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long quantity;
-    private Double total;
+    private Double unitPrice;
     @ManyToOne
     OrderData orderData;
 
     public OrderItemData() {
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JoinColumn(name = "product_id")
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private ProductData productData;
 
     public static List<OrderItemData> from(List<OrderItem> orderItems) {
-        List<OrderItemData> orderItemHashSet = new ArrayList<>();
+        List<OrderItemData> orderItemsList = new ArrayList<>();
         orderItems.forEach(orderItem -> {
             var orderItemData = OrderItemData.from(orderItem);
-            orderItemHashSet.add(orderItemData);
+            orderItemsList.add(orderItemData);
         });
 
-        return orderItemHashSet;
+        return orderItemsList;
     }
 
     public static OrderItemData from(OrderItem orderItem) {
         return new OrderItemData(
                 orderItem.getId(),
                 orderItem.getQuantity(),
-                orderItem.getTotal(),
+                orderItem.getUnitPrice(),
                 null,
                 null
+        );
+    }
+
+    public static OrderItemData newInstance(
+            Long quantity,
+            Double unitPrice,
+            OrderData orderData,
+            ProductData productData) {
+        return new OrderItemData(
+                null,
+                quantity,
+                unitPrice,
+                orderData,
+                productData
         );
     }
 }

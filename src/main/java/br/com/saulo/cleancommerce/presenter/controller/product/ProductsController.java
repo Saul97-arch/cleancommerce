@@ -1,8 +1,8 @@
 package br.com.saulo.cleancommerce.presenter.controller.product;
 
 import br.com.saulo.cleancommerce.core.usecases.products.ProductsUseCase;
-import br.com.saulo.cleancommerce.data.entities.dto.CreateProductRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.ProductResponse;
+import br.com.saulo.cleancommerce.data.dto.CreateProductRequest;
+import br.com.saulo.cleancommerce.data.dto.ProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

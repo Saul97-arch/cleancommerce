@@ -2,7 +2,6 @@ package br.com.saulo.cleancommerce.data.entities;
 
 import br.com.saulo.cleancommerce.core.domain.Order;
 import br.com.saulo.cleancommerce.core.domain.Status;
-import br.com.saulo.cleancommerce.data.entities.dto.OrderRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity(name = "order")
 @Getter
@@ -33,9 +30,14 @@ public class OrderData {
     private Instant createdAt;
 
     @Column(name = "order_item")
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.MERGE},
+            orphanRemoval = true
+    )
     private List<OrderItemData> orderItems;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public OrderData(Double total) {
@@ -84,7 +86,7 @@ public class OrderData {
     private void calculateTotal() {
         this.total = this.orderItems
                 .stream()
-                .mapToDouble(OrderItemData::getTotal)
+                .mapToDouble(OrderItemData::getUnitPrice)
                 .sum();
     }
 
