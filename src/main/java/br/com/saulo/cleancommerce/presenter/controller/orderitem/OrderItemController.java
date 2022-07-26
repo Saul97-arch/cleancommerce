@@ -1,8 +1,10 @@
 package br.com.saulo.cleancommerce.presenter.controller.orderitem;
 
+import br.com.saulo.cleancommerce.core.domain.exceptions.OrderNotFoundException;
 import br.com.saulo.cleancommerce.core.usecases.orderItem.OrderItemUseCase;
 import br.com.saulo.cleancommerce.data.dto.OrderItemRequest;
 import br.com.saulo.cleancommerce.data.dto.OrderItemResponse;
+import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -16,6 +18,12 @@ public class OrderItemController implements IOrderItemController {
     @Override
     public CompletableFuture<ResponseEntity<OrderItemResponse>> createOrderItem(OrderItemRequest orderItemRequest) {
         return CompletableFuture.supplyAsync(() ->
-                ResponseEntity.ok(orderItemUseCase.createOrderItem(orderItemRequest)));
+        {
+            try {
+                return ResponseEntity.ok(orderItemUseCase.createOrderItem(orderItemRequest));
+            } catch (OrderNotFoundException | ProductNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
