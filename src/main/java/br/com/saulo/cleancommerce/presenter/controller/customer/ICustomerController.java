@@ -12,11 +12,10 @@ import java.util.List;
 public interface ICustomerController {
     @GetMapping("/list")
     List<CustomerResponse> listAllCustomers();
-    // TODO Use
+
     @PostMapping("/create")
     CustomerResponse createCustomer(CustomerCreateRequest customerCreateRequest);
 
-    // TODO email is coming encrypted
     @GetMapping("/{email}")
     CustomerResponse findByEmail(@PathVariable String email) throws UserNotFoundException;
 }

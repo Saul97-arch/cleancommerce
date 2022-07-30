@@ -1,6 +1,7 @@
 package br.com.saulo.cleancommerce.data.repositories;
 
 import br.com.saulo.cleancommerce.core.domain.exceptions.OrderNotFoundException;
+import br.com.saulo.cleancommerce.core.usecases.orderItem.IOrderItemRepository;
 import br.com.saulo.cleancommerce.data.dto.OrderItemRequest;
 import br.com.saulo.cleancommerce.data.dto.OrderItemResponse;
 import br.com.saulo.cleancommerce.data.entities.OrderData;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class OrderItemRepository {
+public class OrderItemRepository implements IOrderItemRepository {
 
     @Autowired
     private JPAOrderItemRepository jpaOrderItemRepository;
