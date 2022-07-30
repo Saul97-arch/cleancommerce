@@ -17,8 +17,8 @@ import java.util.Optional;
 public class JWTauthenticationFilter extends OncePerRequestFilter {
 
 
-    private TokenService tokenService;
-    private JPACustomerRepository customerRepository;
+    private final TokenService tokenService;
+    private final JPACustomerRepository customerRepository;
     public JWTauthenticationFilter(TokenService tokenService, JPACustomerRepository customerRepository) {
         this.tokenService = tokenService;
         this.customerRepository = customerRepository;

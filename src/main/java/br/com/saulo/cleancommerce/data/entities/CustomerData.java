@@ -26,8 +26,6 @@ public class CustomerData implements UserDetails {
     String address;
     String password;
     String email;
-    @Column(name = "all_orders")
-    @JoinColumn(name = "all_orders_id")
     @OneToMany
     List<OrderData> orderDataList;
 

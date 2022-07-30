@@ -1,7 +1,7 @@
 package br.com.saulo.cleancommerce.presenter.services;
 
-import br.com.saulo.cleancommerce.data.entities.dto.AuthenticationRequest;
-import br.com.saulo.cleancommerce.data.entities.dto.TokenDto;
+import br.com.saulo.cleancommerce.data.dto.AuthenticationRequest;
+import br.com.saulo.cleancommerce.data.dto.TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -11,4 +11,6 @@ public interface ICustomerRepository {
     List<Customer> listAllCustomers();
     Customer persist(Customer customer);
     Customer findByEmail(String email) throws UserNotFoundException;
+
+    Optional<Customer> findById(long id) throws UserNotFoundException;
 }

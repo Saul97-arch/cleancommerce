@@ -14,14 +14,13 @@ public class Order {
     Instant createdAt;
     Double total;
     Customer customer;
-
-    public static Order newInstance(List<OrderItem> orderItemList, Double total, Customer customer) {
+    public static Order newInstance(Customer customer) {
         return new Order(
                 null,
                 Status.OPEN,
-                orderItemList,
+                null,
                 Instant.now(),
-                calculateTotal(orderItemList),
+                null,
                 customer
         );
     }
@@ -29,7 +28,7 @@ public class Order {
     private static Double calculateTotal(List<OrderItem> orderItems) {
         return orderItems
                 .stream()
-                .mapToDouble(OrderItem::getTotal)
+                .mapToDouble(OrderItem::getUnitPrice)
                 .sum();
     }
 

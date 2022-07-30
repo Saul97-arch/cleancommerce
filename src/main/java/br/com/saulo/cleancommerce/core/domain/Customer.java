@@ -1,6 +1,7 @@
 package br.com.saulo.cleancommerce.core.domain;
 
-import br.com.saulo.cleancommerce.data.entities.dto.CustomerResponse;
+import br.com.saulo.cleancommerce.data.entities.CustomerData;
+import br.com.saulo.cleancommerce.data.dto.CustomerResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,17 @@ public class Customer {
                 address,
                 password,
                 email
+        );
+    }
+
+    public static Customer from(CustomerData customerData) {
+        return new Customer(
+                customerData.getId(),
+                customerData.getCPF(),
+                customerData.getName(),
+                customerData.getAddress(),
+                null,
+                customerData.getEmail()
         );
     }
 

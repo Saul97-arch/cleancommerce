@@ -1,6 +1,7 @@
 package br.com.saulo.cleancommerce.data.entities;
 
 import br.com.saulo.cleancommerce.core.domain.Order;
+import br.com.saulo.cleancommerce.core.domain.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -17,29 +17,47 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders")
 public class OrderData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     private Double total;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    @Column(name = "order_item")
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_item_id", nullable = false)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderData")
     private List<OrderItemData> orderItems;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @ManyToOne
+    private CustomerData customerData;
 
     public static OrderData from(Order order) {
         return new OrderData(
-                null,
+                order.getId(),
                 order.getTotal(),
                 order.getCreatedAt(),
-                OrderItemData.from(order.getOrderItemList())
+                new ArrayList<>(),
+                order.getStatus(),
+                CustomerData.fromCustomer(order.getCustomer())
         );
     }
 
+    public static OrderData newInstance(CustomerData customerData) {
+        return new OrderData(
+                null,
+                0d,
+                Instant.now(),
+                new ArrayList<>(),
+                Status.OPEN,
+                customerData
+        );
+    }
 
     public void addOrderItem(OrderItemData orderItem) {
         if (this.orderItems == null) {
@@ -54,7 +72,7 @@ public class OrderData {
     private void calculateTotal() {
         this.total = this.orderItems
                 .stream()
-                .mapToDouble(OrderItemData::getTotal)
+                .mapToDouble(OrderItemData::getUnitPrice)
                 .sum();
     }
 

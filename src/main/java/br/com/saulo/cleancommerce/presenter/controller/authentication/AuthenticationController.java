@@ -1,7 +1,7 @@
 package br.com.saulo.cleancommerce.presenter.controller.authentication;
 
 import br.com.saulo.cleancommerce.core.usecases.security.authentication.AuthenticationUseCase;
-import br.com.saulo.cleancommerce.data.entities.dto.AuthenticationRequest;
+import br.com.saulo.cleancommerce.data.dto.AuthenticationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
