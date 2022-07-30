@@ -2,12 +2,9 @@ package br.com.saulo.cleancommerce.presenter.services;
 
 import br.com.saulo.cleancommerce.core.domain.Customer;
 import br.com.saulo.cleancommerce.core.domain.Order;
-import br.com.saulo.cleancommerce.core.domain.OrderItem;
-import br.com.saulo.cleancommerce.core.domain.Product;
 import br.com.saulo.cleancommerce.core.domain.exceptions.UserNotFoundException;
 import br.com.saulo.cleancommerce.data.dto.OrderRequest;
 import br.com.saulo.cleancommerce.data.dto.OrderResponse;
-import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
 import br.com.saulo.cleancommerce.data.repositories.CustomerRepository;
 import br.com.saulo.cleancommerce.data.repositories.OrderRepository;
 import br.com.saulo.cleancommerce.data.repositories.ProductRepository;

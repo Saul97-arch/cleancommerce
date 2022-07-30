@@ -1,4 +1,4 @@
-package br.com.saulo.cleancommerce.data.entities.exceptions;
+package br.com.saulo.cleancommerce.core.domain.exceptions;
 
 public class ProductNotFoundException extends Exception{
 

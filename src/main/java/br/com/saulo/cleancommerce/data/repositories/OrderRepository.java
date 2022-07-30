@@ -4,6 +4,7 @@ import br.com.saulo.cleancommerce.core.domain.Customer;
 import br.com.saulo.cleancommerce.core.domain.Order;
 import br.com.saulo.cleancommerce.core.domain.OrderItem;
 import br.com.saulo.cleancommerce.core.domain.exceptions.OrderNotFoundException;
+import br.com.saulo.cleancommerce.core.usecases.order.IOrderRepository;
 import br.com.saulo.cleancommerce.data.dto.OrderItemResponse;
 import br.com.saulo.cleancommerce.data.entities.OrderData;
 import br.com.saulo.cleancommerce.data.dto.OrderResponse;
@@ -20,9 +21,8 @@ import java.util.stream.Collectors;
 
 import static br.com.saulo.cleancommerce.data.entities.CustomerData.fromCustomer;
 
-// TODO use a interface
 @Repository
-public class OrderRepository {
+public class OrderRepository implements IOrderRepository {
 
     @Autowired
     JPAOrderRepository orderRepository;
@@ -30,13 +30,14 @@ public class OrderRepository {
     @Async
     public OrderResponse persist(Order order) {
 
-        // TODO make a better return for order creation
         OrderData orderData = orderRepository.save(OrderData.newInstance(fromCustomer(order.getCustomer())));
 
-        return new OrderResponse(orderData.getId(),
+        return new OrderResponse(
+                orderData.getId(),
                 orderData.getStatus().toString(),
                 orderData.getTotal(),
-                convertToOrderItemResponseList(orderData.getOrderItems()));
+                convertToOrderItemResponseList(orderData.getOrderItems())
+        );
     }
 
     @Async

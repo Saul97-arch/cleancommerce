@@ -5,7 +5,7 @@ import br.com.saulo.cleancommerce.core.usecases.products.IProductRepository;
 import br.com.saulo.cleancommerce.data.entities.ProductData;
 import br.com.saulo.cleancommerce.data.dto.CreateProductRequest;
 import br.com.saulo.cleancommerce.data.dto.ProductResponse;
-import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
+import br.com.saulo.cleancommerce.core.domain.exceptions.ProductNotFoundException;
 import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAProductRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
