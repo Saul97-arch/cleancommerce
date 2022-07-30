@@ -7,7 +7,7 @@ import br.com.saulo.cleancommerce.data.dto.OrderItemResponse;
 import br.com.saulo.cleancommerce.data.entities.OrderData;
 import br.com.saulo.cleancommerce.data.entities.OrderItemData;
 import br.com.saulo.cleancommerce.data.entities.ProductData;
-import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
+import br.com.saulo.cleancommerce.core.domain.exceptions.ProductNotFoundException;
 import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAOrderItemRepository;
 import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAOrderRepository;
 import br.com.saulo.cleancommerce.data.repositories.jpaRepositories.JPAProductRepository;

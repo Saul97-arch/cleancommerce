@@ -3,7 +3,7 @@ package br.com.saulo.cleancommerce.presenter.services;
 import br.com.saulo.cleancommerce.core.domain.exceptions.OrderNotFoundException;
 import br.com.saulo.cleancommerce.data.dto.OrderItemRequest;
 import br.com.saulo.cleancommerce.data.dto.OrderItemResponse;
-import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
+import br.com.saulo.cleancommerce.core.domain.exceptions.ProductNotFoundException;
 import br.com.saulo.cleancommerce.data.repositories.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;

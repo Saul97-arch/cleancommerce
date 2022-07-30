@@ -1,12 +1,9 @@
 package br.com.saulo.cleancommerce.core.domain;
 
 import br.com.saulo.cleancommerce.data.entities.ProductData;
-import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Optional;
 
 @AllArgsConstructor
 @Getter

@@ -4,7 +4,7 @@ import br.com.saulo.cleancommerce.core.domain.exceptions.OrderNotFoundException;
 import br.com.saulo.cleancommerce.core.usecases.orderItem.OrderItemUseCase;
 import br.com.saulo.cleancommerce.data.dto.OrderItemRequest;
 import br.com.saulo.cleancommerce.data.dto.OrderItemResponse;
-import br.com.saulo.cleancommerce.data.entities.exceptions.ProductNotFoundException;
+import br.com.saulo.cleancommerce.core.domain.exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
