@@ -17,7 +17,7 @@ public class OrderUseCase {
 
     @Async
     public ResponseEntity<OrderResponse> orderItem(OrderRequest orderItemRequest) throws UserNotFoundException {
-        return orderService.orderItem(orderItemRequest);
+        return orderService.createOrder(orderItemRequest);
     }
 
     @Async

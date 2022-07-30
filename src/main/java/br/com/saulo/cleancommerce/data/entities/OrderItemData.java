@@ -20,11 +20,12 @@ public class OrderItemData {
     private Long id;
     private Long quantity;
     private Double unitPrice;
+
     @ManyToOne
+    @JoinColumn(name = "order_id")
     OrderData orderData;
 
-    public OrderItemData() {
-    }
+    public OrderItemData() {}
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")

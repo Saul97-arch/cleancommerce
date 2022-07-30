@@ -19,7 +19,7 @@ public class OrderController implements IOrderController {
     private OrderUseCase orderUseCase;
 
     @Override
-    public CompletableFuture<ResponseEntity<OrderResponse>> orderItem(@Valid @RequestBody OrderRequest orderRequest) {
+    public CompletableFuture<ResponseEntity<OrderResponse>> createOrder(@Valid @RequestBody OrderRequest orderRequest) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 return orderUseCase.orderItem(orderRequest);

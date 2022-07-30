@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -24,6 +25,9 @@ public class ProductData {
 
     private String description;
     private Double price;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "productData")
+    private List<OrderItemData> orderItems;
 
     public ProductData(String name, String description, Double price) {
         this.name = name;

@@ -11,8 +11,8 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/orders")
 public interface IOrderController {
-    @PostMapping("/buy")
-    CompletableFuture<ResponseEntity<OrderResponse>> orderItem(OrderRequest orderRequest) throws Exception;
+    @PostMapping("/create")
+    CompletableFuture<ResponseEntity<OrderResponse>> createOrder(OrderRequest orderRequest) throws Exception;
 
     @GetMapping("/list")
     CompletableFuture<ResponseEntity<List<OrderResponse>>> listOrders();

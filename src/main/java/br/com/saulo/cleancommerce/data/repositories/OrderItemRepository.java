@@ -1,7 +1,5 @@
 package br.com.saulo.cleancommerce.data.repositories;
 
-import br.com.saulo.cleancommerce.core.domain.Order;
-import br.com.saulo.cleancommerce.core.domain.Product;
 import br.com.saulo.cleancommerce.core.domain.exceptions.OrderNotFoundException;
 import br.com.saulo.cleancommerce.data.dto.OrderItemRequest;
 import br.com.saulo.cleancommerce.data.dto.OrderItemResponse;
@@ -39,17 +37,38 @@ public class OrderItemRepository {
         Optional<OrderData> orderData = orderRepository.findById(orderId);
 
         assert product.isPresent();
-        assert orderData.isPresent();
 
-        OrderItemData orderItemData = jpaOrderItemRepository.save(
-                OrderItemData.newInstance(orderItemRequest.getQuantity(),
-                        product.get().getPrice(),
-                        orderData.get(),
-                        product.get())
-        );
+        if (orderData.isPresent()) {
+            OrderItemData orderItemData = jpaOrderItemRepository.save(
+                    OrderItemData.newInstance(orderItemRequest.getQuantity(),
+                            product.get().getPrice(),
+                            orderData.get(),
+                            product.get())
+            );
 
-        Double totalPrice = orderItemData.getUnitPrice() * orderItemData.getQuantity();
+            Double totalPrice = orderItemData.getUnitPrice() * orderItemData.getQuantity();
 
-        return new OrderItemResponse(orderItemData.getId(), orderItemData.getQuantity(), orderItemData.getUnitPrice(), totalPrice);
+            setOrderTotalPrice(orderData.get(), totalPrice);
+
+            return new OrderItemResponse(
+                    orderItemData.getId(),
+                    orderItemData.getQuantity(),
+                    orderItemData.getUnitPrice(),
+                    totalPrice
+            );
+        }
+
+        throw new OrderNotFoundException("Order with id : " + orderItemRequest.getOrderId() + " not found!");
+    }
+
+    private void setOrderTotalPrice(OrderData orderData, Double totalPrice) {
+        if (orderData.getTotal() == 0) {
+            orderData.setTotal(totalPrice);
+        } else {
+            var aux = orderData.getTotal() + totalPrice;
+            orderData.setTotal(aux);
+        }
+
+        orderRepository.save(orderData);
     }
 }

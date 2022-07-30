@@ -32,12 +32,5 @@ public class Product {
         );
     }
 
-    public ProductData toProductData() {
-        return new ProductData(
-                id,
-                name,
-                description,
-                price
-        );
-    }
+
 }

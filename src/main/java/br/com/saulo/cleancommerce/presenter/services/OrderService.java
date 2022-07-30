@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -31,29 +32,15 @@ public class OrderService {
     CustomerRepository customerRepository;
 
     @Async
-    public ResponseEntity<OrderResponse> orderItem(OrderRequest orderRequest) throws UserNotFoundException {
+    public ResponseEntity<OrderResponse> createOrder(OrderRequest orderRequest) throws UserNotFoundException {
 
-        List<OrderItem> orderItems = orderRequest.getOrderItemRequestList().stream().map(orderItemRequest -> {
-            Product product;
-            try {
-                product = productRepository.findByName(orderItemRequest.getName());
-            } catch (ProductNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            return OrderItem.newInstance(orderItemRequest.getQuantity(), product);
-        }).toList();
-
-        Double totalPrice = orderItems
-                .stream()
-                .reduce(0.0, (total, orderItem) -> total + orderItem.getUnitPrice(), Double::sum);
-
-        if (customerRepository.findById(orderRequest.getCustomerId()).isPresent()) {
-            Customer customer = customerRepository.findById(orderRequest.getCustomerId()).get();
-            OrderResponse persist = orderRepository.persist(Order.newInstance(orderItems, totalPrice, customer));
+        Optional<Customer> customer = customerRepository.findById(orderRequest.getCustomerId());
+        if (customer.isPresent()) {
+            OrderResponse persist = orderRepository.persist(Order.newInstance(customer.get()));
             return ResponseEntity.ok(persist);
         }
 
-        return ResponseEntity.badRequest().build();
+        throw new UserNotFoundException("This customer does not exists!");
     }
     @Async
     public ResponseEntity<List<OrderResponse>> listOrders() {

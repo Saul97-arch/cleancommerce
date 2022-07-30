@@ -12,12 +12,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "order")
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders")
 public class OrderData {
 
     @Id
@@ -29,20 +28,11 @@ public class OrderData {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    @Column(name = "order_item")
-    @OneToMany(
-            fetch = FetchType.EAGER,
-            cascade = {CascadeType.MERGE},
-            orphanRemoval = true
-    )
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderData")
     private List<OrderItemData> orderItems;
 
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    public OrderData(Double total) {
-        this.total = total;
-    }
 
     @ManyToOne
     private CustomerData customerData;
@@ -58,19 +48,15 @@ public class OrderData {
         );
     }
 
-    public static OrderData newInstance(List<OrderItemData> orderItems, CustomerData customerData) {
-        OrderData order = new OrderData(
+    public static OrderData newInstance(CustomerData customerData) {
+        return new OrderData(
                 null,
                 0d,
                 Instant.now(),
-                null,
+                new ArrayList<>(),
                 Status.OPEN,
                 customerData
         );
-
-        orderItems.forEach(order::addOrderItem);
-
-        return order;
     }
 
     public void addOrderItem(OrderItemData orderItem) {

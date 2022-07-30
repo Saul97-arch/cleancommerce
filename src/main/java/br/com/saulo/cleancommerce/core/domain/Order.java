@@ -14,14 +14,13 @@ public class Order {
     Instant createdAt;
     Double total;
     Customer customer;
-
-    public static Order newInstance(List<OrderItem> orderItemList, Double total, Customer customer) {
+    public static Order newInstance(Customer customer) {
         return new Order(
                 null,
                 Status.OPEN,
-                orderItemList,
+                null,
                 Instant.now(),
-                calculateTotal(orderItemList),
+                null,
                 customer
         );
     }

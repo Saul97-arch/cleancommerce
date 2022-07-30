@@ -15,6 +15,6 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/orderItem")
 public interface IOrderItemController {
 
-    @PostMapping
+    @PostMapping("/create")
     CompletableFuture<ResponseEntity<OrderItemResponse>> createOrderItem(@Valid @RequestBody OrderItemRequest orderItemRequest);
 }
