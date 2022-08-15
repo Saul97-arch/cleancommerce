@@ -10,8 +10,8 @@ the app or the architecture will be pretty welcome!
 
 **Here is a checklist of things that will be implemented in the project:**
 
-- [ x ] Unit tests
-- [ x ] Integration tests
+- [x] Unit tests
+- [x] Integration tests
 - [ ] Dependency injection using constructor instead of @Autowired
 - [ ] Global Exception Handler
 - [ ] Use case to define if the order is closed, waiting ect...
