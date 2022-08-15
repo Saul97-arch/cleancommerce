@@ -20,7 +20,6 @@ public class ProductsController implements IProductsController {
     public ProductsController() {
     }
 
-    // Fazer post no discourse sobre
     @Override
     public CompletableFuture<ResponseEntity<List<ProductResponse>>> listAllProducts() {
         return CompletableFuture.supplyAsync(() -> ResponseEntity.ok(productsUseCase.listAllProducts()));

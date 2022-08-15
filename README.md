@@ -15,6 +15,7 @@ the app or the architecture will be pretty welcome!
 - [ ] Dependency injection using constructor instead of @Autowired
 - [ ] Global Exception Handler
 - [ ] Use case to define if the order is closed, waiting ect...
+- [ ] Add roles to application
 
 
 ## **To run the project**:

@@ -41,10 +41,11 @@ public class OrderItemRepository implements IOrderItemRepository {
 
         if (orderData.isPresent()) {
             OrderItemData orderItemData = jpaOrderItemRepository.save(
-                    OrderItemData.newInstance(orderItemRequest.getQuantity(),
-                            product.get().getPrice(),
-                            orderData.get(),
-                            product.get())
+                    OrderItemData.newInstance(
+                            orderItemRequest,
+                            product.get(),
+                            orderData.get()
+                    )
             );
 
             Double totalPrice = orderItemData.getUnitPrice() * orderItemData.getQuantity();

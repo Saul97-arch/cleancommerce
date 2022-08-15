@@ -77,6 +77,10 @@ public class WebSecurityConfig {
                         "/webjars/**",
                         "/configuration/**",
                         "/swagger-resources/**",
-                        "h2-console/**");
+                        "h2-console/**",
+                        "/swagger-resources/**",
+                        "/swagger-ui.html",
+                        "/v2/api-docs",
+                        "/webjars/**");
     }
 }
