@@ -1,6 +1,7 @@
 package br.com.saulo.cleancommerce.data.entities;
 
 import br.com.saulo.cleancommerce.core.domain.OrderItem;
+import br.com.saulo.cleancommerce.data.dto.OrderItemRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,14 +53,14 @@ public class OrderItemData {
     }
 
     public static OrderItemData newInstance(
-            Long quantity,
-            Double unitPrice,
-            OrderData orderData,
-            ProductData productData) {
+            OrderItemRequest orderItemRequest,
+            ProductData productData,
+            OrderData orderData
+    ) {
         return new OrderItemData(
                 null,
-                quantity,
-                unitPrice,
+                orderItemRequest.getQuantity(),
+                productData.getPrice(),
                 orderData,
                 productData
         );
